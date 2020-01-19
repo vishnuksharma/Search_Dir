@@ -21,14 +21,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Searchlayout = props => {
+  const { getEmployee } = props;
   const [inputValue, setInputValue] = useState('');
   const classes = useStyles();
   useEffect(() => {
-    
+    getEmployee('');
   }, [])
 
 
   const onRequestSearch = () => {
+    getEmployee(inputValue);
     console.log('onRequestSearch', inputValue);
     
   }
@@ -75,7 +77,7 @@ const mapState = state => ({
   userProgress: state.user
 });
 const maspDispatch = dispatch => ({
-  getUser: (payload) => dispatch({ type: "user/getUser", payload })
+  getEmployee: (payload) => dispatch({ type: "SearchDir/getEmployee", payload })
 })
 export default connect(
   mapState,

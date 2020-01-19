@@ -1,24 +1,30 @@
 import axios from 'axios';
 
 const delay = (time)=> new Promise(resolve =>setTimeout(()=>resolve(), time))
-const intialSate = {risk: 0, review: 0, completed: 0}
+const intialSate = {
+
+}
+const apiRoute = 'http://api.additivasia.io/api/v1/assignment/employees';
+const ENDPOINTS = {
+    getEmployeeUrl: (searchQuery) => `${apiRoute}/${searchQuery}`,
+}
+
 export const SearchDir = {
     state: intialSate,
     reducers: {
-        updateUser(state, payload) {
+        updateEmployee(state, payload) {
             return payload
         }
     },
     effects: (dispatch) => ({
-        async getUser(payload, state) {
-            dispatch.user.updateUser(intialSate); 
-            await delay(1000)
-            axios.post('/api/user', payload)
+        async getEmployee(payload, state) {
+            dispatch.SearchDir.updateEmployee(intialSate);
+            axios.get(ENDPOINTS.getEmployeeUrl(payload))
             .then(res => {
                 if (Object.keys(res.data).length){
-                    dispatch.user.updateUser(res.data);
+                    dispatch.SearchDir.updateEmployee(res.data);
                 } else {
-                    dispatch.user.updateUser(intialSate); 
+                    dispatch.SearchDir.updateEmployee(intialSate); 
                 }
             })
         }
