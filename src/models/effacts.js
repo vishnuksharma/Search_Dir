@@ -27,6 +27,9 @@ export const SearchDir = {
                     dispatch.SearchDir.updateEmployee(intialSate); 
                 }
             })
+            .catch(error => {
+                throw new Error(error);
+            })
         }
     })
 };

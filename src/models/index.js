@@ -1,4 +1,4 @@
-import { SearchDir } from './SearchDir';
+import { SearchDir } from './effacts';
 export {
     SearchDir,
 }
