@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
+import isEmpty from "lodash/isEmpty";
 import { connect } from "react-redux";
 import { makeStyles, Box, Grid, Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
@@ -37,9 +38,14 @@ const Searchlayout = props => {
   }
   const onCancelSearch = () => {
     setInputValue('');
-    // updateEmpSearchState({});
+    updateEmpSearchState({});
+    console.log('onCancelSearch');
+    
 
   }
+
+  // console.log(updateEmpSearchState({}), 'updateEmpSearchState');
+  
   return (
     <Container maxWidth="lg">
       <Grid container className={classes.container}>
@@ -65,7 +71,7 @@ const Searchlayout = props => {
           />
         </Box>
         </Grid>
-        {searchDirData && (
+        {!isEmpty(searchDirData) && (
           <Grid item xs={8} className={classes.marginTop}>
             <EmpOverviewComponent {...props} searchInputValue={inputValue} />
           </Grid>
@@ -90,11 +96,14 @@ const mapState = state => {
 const mapDispatch = (dispatch) => {
   console.log(dispatch, 'dispatch');
   
-  const { searchDir: { getSearchDir } } = dispatch;
-  return { getSearchDir };
+  const { searchDir: { getSearchDir, updateEmpSearchState } } = dispatch;
+  return {
+    getSearchDir,
+    updateEmpSearchState,
+  };
 };
 
 export default connect(
   mapState,
   mapDispatch
-)(Searchlayout);
+)(memo(Searchlayout));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import get from 'lodash/get';
 import { Grid, Typography, List, ListItem, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -20,9 +20,9 @@ const EmpOverviewComponent = (props) => {
   console.log(searchDirData, 'searchDirData');
   
   const renderEmpList = () => {
-    return get(searchDirData, '[1].direct-subordinates', []).map(item => {
+    return get(searchDirData, '[1].direct-subordinates', []).map((item, index) => {
       return (
-      <ListItem>
+      <ListItem key={index}>
         <Typography className={classes.alignMent}
             variant="h6"
             component="div">{item}</Typography>
@@ -55,4 +55,4 @@ const EmpOverviewComponent = (props) => {
   )
 };
 
-export default (EmpOverviewComponent);
+export default memo(EmpOverviewComponent);

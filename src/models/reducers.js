@@ -1,22 +1,22 @@
-const setSearchDirStore = (state, searchDirStore) => ({
+const INITIAL_STATE = {
+  searchDirStore: {},
+  empDirSearch: {},
+}
+
+const setSearchDefaultStore = (state, searchDirStore) => ({
   ...state,
   searchDirStore,
 });
 
-const setEmpDirStore = (state, empDirSearch) => ({
-  ...state,
-  empDirSearch,
-});
-
-const updateEmpSearchState = (state, empDirSearch) => ({
+const setEmpDirSearchStore = (state, empDirSearch) => ({
   ...state,
   empDirSearch,
 });
 
 export default {
+  initialState: INITIAL_STATE,
   reducers: {
-    setSearchDirStore,
-    setEmpDirStore,
-    updateEmpSearchState,
+    setSearchDefaultStore,
+    setEmpDirSearchStore,
   },
 };

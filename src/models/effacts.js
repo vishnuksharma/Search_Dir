@@ -6,9 +6,9 @@ export async function getSearchDir(payload) {
     try {
       const res = await getEmployee(payload);
       if (payload) {
-        this.setEmpDirStore(res)
+        this.setEmpDirSearchStore(res)
       } else {
-          this.setSearchDirStore(res);
+          this.setSearchDefaultStore(res);
       }
     } catch (error) {
       console.log(error)
@@ -17,6 +17,6 @@ export async function getSearchDir(payload) {
     }
   }
 
-  export function updateEmpSearchState(status) {
-    this.updateEmpSearchState(status);
+  export function updateEmpSearchState(empDirSearch) {
+    this.setEmpDirSearchStore(empDirSearch);
   }
