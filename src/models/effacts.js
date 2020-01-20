@@ -1,35 +1,22 @@
-import axios from 'axios';
+import { getEmployee } from '../api/searchEmployeeApi';
 
 const delay = (time)=> new Promise(resolve =>setTimeout(()=>resolve(), time))
-const intialSate = {
 
-}
-const apiRoute = 'http://api.additivasia.io/api/v1/assignment/employees';
-const ENDPOINTS = {
-    getEmployeeUrl: (searchQuery) => `${apiRoute}/${searchQuery}`,
-}
+export async function getSearchDir(payload) {
+    try {
+      const res = await getEmployee(payload);
+      if (payload) {
+        this.setEmpDirStore(res)
+      } else {
+          this.setSearchDirStore(res);
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      // ToDO: Finally
+    }
+  }
 
-export const SearchDir = {
-    state: intialSate,
-    reducers: {
-        updateEmployee(state, payload) {
-            return payload
-        }
-    },
-    effects: (dispatch) => ({
-        async getEmployee(payload, state) {
-            dispatch.SearchDir.updateEmployee(intialSate);
-            axios.get(ENDPOINTS.getEmployeeUrl(payload))
-            .then(res => {
-                if (Object.keys(res.data).length){
-                    dispatch.SearchDir.updateEmployee(res.data);
-                } else {
-                    dispatch.SearchDir.updateEmployee(intialSate); 
-                }
-            })
-            .catch(error => {
-                throw new Error(error);
-            })
-        }
-    })
-};
+  export function updateEmpSearchState(status) {
+    this.updateEmpSearchState(status);
+  }

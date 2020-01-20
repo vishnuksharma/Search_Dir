@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import moment from "moment";
 import { makeStyles, Box, Grid, Typography } from "@material-ui/core";
 import Container from '@material-ui/core/Container';
 import SimpleSearchBar from "../components/SimpleSearchBar";
+import EmpOverviewComponent from "../components/EmpOverview.component";
+import { getEmpDirSearchState } from "../models/selectors";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -15,28 +16,28 @@ const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
   },
-  root: {
-    flexGrow: 1,
+  marginTop: {
+    marginTop:'40px',
   },
 }));
 
 const Searchlayout = props => {
-  const { getEmployee } = props;
+  const { getSearchDir, updateEmpSearchState, searchDirData } = props;
   const [inputValue, setInputValue] = useState('');
   const classes = useStyles();
   useEffect(() => {
-    getEmployee('');
+    getSearchDir('');
   }, [])
 
 
   const onRequestSearch = () => {
-    getEmployee(inputValue);
+    getSearchDir(inputValue);
     console.log('onRequestSearch', inputValue);
     
   }
   const onCancelSearch = () => {
     setInputValue('');
-    console.log('onCancelSearch');
+    // updateEmpSearchState({});
 
   }
   return (
@@ -64,6 +65,13 @@ const Searchlayout = props => {
           />
         </Box>
         </Grid>
+        {searchDirData && (
+          <Grid item xs={8} className={classes.marginTop}>
+            <EmpOverviewComponent {...props} searchInputValue={inputValue} />
+          </Grid>
+        )}
+        
+
       </Grid>
       
     </Container>
@@ -73,13 +81,20 @@ const Searchlayout = props => {
   );
 };
 
-const mapState = state => ({
-  userProgress: state.user
-});
-const maspDispatch = dispatch => ({
-  getEmployee: (payload) => dispatch({ type: "SearchDir/getEmployee", payload })
-})
+const mapState = state => {
+  return {
+    searchDirData: getEmpDirSearchState(state),
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  console.log(dispatch, 'dispatch');
+  
+  const { searchDir: { getSearchDir } } = dispatch;
+  return { getSearchDir };
+};
+
 export default connect(
   mapState,
-  maspDispatch
+  mapDispatch
 )(Searchlayout);

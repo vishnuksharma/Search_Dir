@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import IconButton from '@material-ui/core/IconButton'
 import Input from '@material-ui/core/Input'
@@ -61,12 +61,9 @@ const SimpleSearchBar = (props) => {
         ...inputProps
      } = props;
 
-     const [stateFocus, setStateFocus] = useState(false);
     const inputRef = React.createRef();
-     const [active, setActive] = useState(false);
 
     const handleFocus = (e) => {
-        setStateFocus(true)
         if (props.onFocus) {
         props.onFocus(e)
         }
@@ -90,7 +87,6 @@ const SimpleSearchBar = (props) => {
     }
 
     const handleCancel = () => {
-        setActive({active: false, value: ''})
         if (props.onCancelSearch) {
         props.onCancelSearch()
         }
@@ -113,21 +109,6 @@ const SimpleSearchBar = (props) => {
         }
     }
 
-    /**
-     * @public
-     * Focus the input component.
-     */
-    const focus = () => {
-        inputRef.current.focus()
-    }
-
-    /**
-     * @public
-     * Blur the input component.
-     */
-    const blur = () => {
-        inputRef.current.blur()
-    }
     return (
         <Paper
         className={classNames(classes.root, className)}
