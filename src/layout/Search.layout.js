@@ -25,7 +25,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Searchlayout = props => {
-  console.log(props, 'props');
   
   const {
     getSearchDir,
