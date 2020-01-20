@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import get from 'lodash/get';
 import { Grid, Typography, List, ListItem, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -17,7 +18,6 @@ const useStyles = makeStyles(theme => ({
 const EmpOverviewComponent = (props) => {
   const { searchDirData, searchInputValue } = props;
   const classes = useStyles();
-  console.log(searchDirData, 'searchDirData');
   
   const renderEmpList = () => {
     return get(searchDirData, '[1].direct-subordinates', []).map((item, index) => {
@@ -53,6 +53,16 @@ const EmpOverviewComponent = (props) => {
       </Grid>
     </Grid>
   )
+};
+
+EmpOverviewComponent.defaultProps = {
+  searchDirData: {},
+  searchInputValue: '',
+};
+
+EmpOverviewComponent.propsType = {
+  searchDirData: PropTypes.instanceOf(Object).isRequired,
+  searchInputValue: PropTypes.string.isRequired,
 };
 
 export default memo(EmpOverviewComponent);

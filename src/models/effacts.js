@@ -11,6 +11,7 @@ export async function getSearchDir(payload) {
           this.setSearchDefaultStore(res);
       }
     } catch (error) {
+      // throw new Error({apiError: true});
       console.log(error)
     } finally {
       // ToDO: Finally

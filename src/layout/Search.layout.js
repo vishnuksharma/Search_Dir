@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import PropTypes from 'prop-types';
 import isEmpty from "lodash/isEmpty";
 import { connect } from "react-redux";
 import { makeStyles, Box, Grid, Typography } from "@material-ui/core";
@@ -23,7 +24,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Searchlayout = props => {
-  const { getSearchDir, updateEmpSearchState, searchDirData } = props;
+  const {
+    getSearchDir,
+    updateEmpSearchState,
+    searchDirData,
+  } = props;
   const [inputValue, setInputValue] = useState('');
   const classes = useStyles();
   useEffect(() => {
@@ -33,13 +38,11 @@ const Searchlayout = props => {
 
   const onRequestSearch = () => {
     getSearchDir(inputValue);
-    console.log('onRequestSearch', inputValue);
     
   }
   const onCancelSearch = () => {
     setInputValue('');
     updateEmpSearchState({});
-    console.log('onCancelSearch');
     
 
   }
@@ -94,14 +97,22 @@ const mapState = state => {
 };
 
 const mapDispatch = (dispatch) => {
-  console.log(dispatch, 'dispatch');
-  
   const { searchDir: { getSearchDir, updateEmpSearchState } } = dispatch;
   return {
     getSearchDir,
     updateEmpSearchState,
   };
 };
+
+Searchlayout.propTypes = {
+  getSearchDir: PropTypes.func.isRequired,
+  updateEmpSearchState: PropTypes.func.isRequired,
+  searchDirData: PropTypes.instanceOf(Object).isRequired,
+}
+
+Searchlayout.defaultProps = {
+  searchDirData: {},
+}
 
 export default connect(
   mapState,
