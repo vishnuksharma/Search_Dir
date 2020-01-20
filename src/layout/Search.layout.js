@@ -43,11 +43,11 @@ const Searchlayout = props => {
   const onCancelSearch = () => {
     setInputValue('');
     updateEmpSearchState({});
-    
-
   }
 
-  // console.log(updateEmpSearchState({}), 'updateEmpSearchState');
+  const onChangehandler = () => {
+    updateEmpSearchState({});
+  }
   
   return (
     <Container maxWidth="lg">
@@ -63,7 +63,7 @@ const Searchlayout = props => {
           <Box pt={6}>
           <SimpleSearchBar
             onCancelSearch={onCancelSearch}
-            onChange={() => console.log('onChange')}
+            onChange={onChangehandler}
             onRequestSearch={onRequestSearch}
             inputValue={inputValue}
             setInputValue={setInputValue}
