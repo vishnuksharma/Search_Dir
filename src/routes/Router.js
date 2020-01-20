@@ -1,14 +1,19 @@
 import React from 'react';
 import Searchlayout from '../layout/Search.layout';
-import { Container } from '@material-ui/core';
+import { Router } from "@reach/router"
+import Header from '../components/Header';
+import EmpOverviewComponent from '../components/EmpOverview.component';
 
 const Routes = (props) => {
     // console.log(props);
 
     return (
-            <Container>
-                <Searchlayout />
-            </Container>
+            <Router>
+                <Header path="/">
+                    <Searchlayout default path="/" />
+                    <EmpOverviewComponent path="/overview/:name" />
+                </Header>
+            </Router>
     )
 }
 

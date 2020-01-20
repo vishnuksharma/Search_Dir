@@ -25,21 +25,31 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Searchlayout = props => {
+  console.log(props, 'props');
+  
   const {
     getSearchDir,
     updateEmpSearchState,
     searchDirData,
+    navigate,
+    location,
   } = props;
-  const [inputValue, setInputValue] = useState('');
+  const { search } = location;
+  const queryParams = new URLSearchParams(search);
+  const [inputValue, setInputValue] = useState(queryParams.get('name') || '');
   const classes = useStyles();
   useEffect(() => {
-    getSearchDir('');
-  }, [])
+    getSearchDir(queryParams.get('name') || '');
+  }, []);
 
 
   const onRequestSearch = () => {
     getSearchDir(inputValue);
-    
+    if (inputValue){
+      navigate(`/overview?name=${inputValue}`);
+    } else {
+      navigate(`/overview`);
+    }
   }
   const onCancelSearch = () => {
     setInputValue('');
