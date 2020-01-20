@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import isEmpty from "lodash/isEmpty";
 import { connect } from "react-redux";
@@ -74,12 +75,22 @@ const Searchlayout = props => {
           />
         </Box>
         </Grid>
-        {!isEmpty(searchDirData) && (
+        {(!isEmpty(searchDirData) && !get(searchDirData, 'error', false)) && (
           <Grid item xs={8} className={classes.marginTop}>
             <EmpOverviewComponent {...props} searchInputValue={inputValue} />
           </Grid>
         )}
-        
+        { get(searchDirData, 'error', false) && (
+            <Grid item xs={8}>
+              <Box pt={3}>
+                <Typography 
+                variant="h6"
+                component="div">
+                  Record(s) not found. Please try other name.
+                </Typography>
+              </Box>
+            </Grid>
+          )}
 
       </Grid>
       

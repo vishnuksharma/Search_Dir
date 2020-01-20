@@ -1,4 +1,5 @@
 import { getEmployee } from '../api/searchEmployeeApi';
+import { dispatch } from '../store';
 
 const delay = (time)=> new Promise(resolve =>setTimeout(()=>resolve(), time))
 
@@ -11,7 +12,8 @@ export async function getSearchDir(payload) {
           this.setSearchDefaultStore(res);
       }
     } catch (error) {
-      // throw new Error({apiError: true});
+      // dispatch()
+      this.setEmpDirSearchStore({error:true});
       console.log(error)
     } finally {
       // ToDO: Finally
